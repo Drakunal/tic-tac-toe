@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  static final countMatrix = 3;
+  static int countMatrix = 3;
   static final double size = 92;
   String lastMove = Player.none;
   late List<List<String>> matrix;

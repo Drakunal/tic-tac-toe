@@ -122,6 +122,7 @@ class _HomeState extends State<Home> {
 
   Future showEndDialog(String s) => showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
             title: Text(s),
             content: Text("Press to restart the game."),

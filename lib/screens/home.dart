@@ -17,6 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   static final countMatrix = 3;
   static final double size = 92;
+  String lastMove = Player.none;
   late List<List<String>> matrix;
 
   @override
@@ -61,7 +62,7 @@ class _HomeState extends State<Home> {
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               primary: Colors.white, minimumSize: Size(size, size)),
-          onPressed: () {},
+          onPressed: () selectField(value,index,indexy),
           child: Text(
             value,
             style: TextStyle(fontSize: 32),

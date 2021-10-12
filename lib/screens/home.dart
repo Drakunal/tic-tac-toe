@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/shared/utils.dart';
 
 class Player {
-  static const none = '';
+  static const none = '   ';
   static const X = 'X';
   static const O = 'O';
 }
@@ -16,7 +16,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   static int countMatrix = 3;
-  static final double size = 92;
+  static double size = 96;
+  String _modeSelected = '3';
+  List<String> modes = ['3', '4', '5', '6'];
   String lastMove = Player.none;
   late List<List<String>> matrix;
 
@@ -28,10 +30,37 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  _showModal() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.all(20),
+            child: changeSquares(),
+          );
+        });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Tic tac toe"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              _showModal();
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ),
+                Text("Setting", style: TextStyle(color: Colors.white)),
+              ],
+            ),
+          ),
+        ],
       ),
       backgroundColor: getBackgroundColor(),
       body: Column(
@@ -82,7 +111,7 @@ class _HomeState extends State<Home> {
           onPressed: () => selectField(value, index, indexy),
           child: Text(
             value,
-            style: TextStyle(color: Colors.black, fontSize: 32),
+            style: TextStyle(color: Colors.black, fontSize: size / 3),
           )),
     );
   }
@@ -135,4 +164,42 @@ class _HomeState extends State<Home> {
                   child: Text("Restart"))
             ],
           ));
+
+  changeSquares() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: DropdownButtonFormField(
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.all(20),
+            // hintStyle: TextStyle(color: Colors.black45),
+            errorStyle: TextStyle(color: Colors.redAccent),
+            border: OutlineInputBorder(),
+            suffixIcon: Icon(
+              Icons.crop_square_sharp,
+            ),
+            labelText: 'Change number of squares',
+          ),
+          value: _modeSelected,
+          items: modes.map((mode) {
+            return DropdownMenuItem(
+              value: mode,
+              child: Text("$mode"),
+            );
+          }).toList(),
+          //  validator: (value) =>
+          //     value!.isEmpty ? 'Enter the amount' : null,
+          onChanged: (value) {
+            setState(() {
+              _modeSelected = value.toString();
+              countMatrix = int.parse(_modeSelected);
+              size = (288 / countMatrix);
+              // DatabaseService(uid: user.uid).filter(_modeSelected);
+            });
+            setEmptyFields();
+          },
+        ),
+      ),
+    );
+  }
 }

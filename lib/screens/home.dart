@@ -95,6 +95,22 @@ class _HomeState extends State<Home> {
         lastMove = newValue;
         matrix[index][indexy] = newValue;
       });
+      showEndDialog("Player $newValue Won!!!!");
     }
   }
+
+  Future showEndDialog(String s) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text(s),
+            content: Text("Press to restart the game."),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    setEmptyFields();
+                    Navigator.pop(context);
+                  },
+                  child: Text("Restart"))
+            ],
+          ));
 }

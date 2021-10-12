@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("Tic tac toe"),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: getBackgroundColor(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: Utils.modelBuilder(matrix, (index, model) => buildRow(index)),
@@ -64,6 +64,11 @@ class _HomeState extends State<Home> {
       default:
         return Colors.white;
     }
+  }
+
+  Color getBackgroundColor() {
+    final thisMove = lastMove == Player.X ? Player.O : Player.X;
+    return getFieldColor(thisMove).withAlpha(150);
   }
 
   Widget buildField(int index, int indexy) {

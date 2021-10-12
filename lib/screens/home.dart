@@ -95,8 +95,29 @@ class _HomeState extends State<Home> {
         lastMove = newValue;
         matrix[index][indexy] = newValue;
       });
-      showEndDialog("Player $newValue Won!!!!");
+      if (isWinner(index, indexy)) {
+        showEndDialog("Player $newValue Won!!!!");
+      } else if (isEnd()) {
+        showEndDialog("Draw!");
+      }
     }
+  }
+
+  bool isEnd() =>
+      matrix.every((values) => values.every((value) => value != Player.none));
+  bool isWinner(int x, int y) {
+    var col = 0, row = 0, diag = 0, rdiag = 0;
+    final player = matrix[x][y];
+    final n = countMatrix;
+
+    for (int i = 0; i < n; i++) {
+      if (matrix[x][i] == player) col++;
+      if (matrix[i][y] == player) row++;
+      if (matrix[i][i] == player) diag++;
+      if (matrix[i][n - i - 1] == player) rdiag++;
+    }
+
+    return row == n || col == n || diag == n || rdiag == n;
   }
 
   Future showEndDialog(String s) => showDialog(

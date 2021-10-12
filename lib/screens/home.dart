@@ -62,11 +62,22 @@ class _HomeState extends State<Home> {
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               primary: Colors.white, minimumSize: Size(size, size)),
-          onPressed: () selectField(value,index,indexy),
+          onPressed: () => selectField(value, index, indexy),
           child: Text(
             value,
-            style: TextStyle(fontSize: 32),
+            style: TextStyle(color: Colors.black, fontSize: 32),
           )),
     );
+  }
+
+  selectField(String value, int index, int indexy) {
+    if (value == Player.none) {
+      final newValue = (lastMove == Player.X) ? Player.O : Player.X;
+
+      setState(() {
+        lastMove = newValue;
+        matrix[index][indexy] = newValue;
+      });
+    }
   }
 }

@@ -56,13 +56,16 @@ class _HomeState extends State<Home> {
 
   Widget buildField(int index, int indexy) {
     final value = matrix[index][indexy];
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: Colors.white, minimumSize: Size(size, size)),
-        onPressed: () {},
-        child: Text(
-          value,
-          style: TextStyle(fontSize: 32),
-        ));
+    return Container(
+      margin: EdgeInsets.all(8),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              primary: Colors.white, minimumSize: Size(size, size)),
+          onPressed: () {},
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 32),
+          )),
+    );
   }
 }

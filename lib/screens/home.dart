@@ -55,13 +55,25 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Color getFieldColor(String value) {
+    switch (value) {
+      case Player.O:
+        return Colors.blue;
+      case Player.X:
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
+  }
+
   Widget buildField(int index, int indexy) {
     final value = matrix[index][indexy];
+    Color fieldColor = getFieldColor(value);
     return Container(
       margin: EdgeInsets.all(8),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: Colors.white, minimumSize: Size(size, size)),
+              primary: fieldColor, minimumSize: Size(size, size)),
           onPressed: () => selectField(value, index, indexy),
           child: Text(
             value,

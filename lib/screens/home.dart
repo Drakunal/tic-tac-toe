@@ -100,10 +100,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void setEmptyFields() => setState(() {
-        matrix = List.generate(countMatrix,
-            (index) => List.generate(countMatrix, (index) => Player.none));
-      });
+  void setEmptyFields() {
+    setState(() {
+      matrix = List.generate(countMatrix,
+          (index) => List.generate(countMatrix, (index) => Player.none));
+    });
+    DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+  }
 
   Widget buildRow(int index) {
     final values = matrix[index];
@@ -154,6 +157,22 @@ class _HomeState extends State<Home> {
         lastMove = newValue;
         matrix[index][indexy] = newValue;
       });
+      int count = -1;
+      int flag = 0;
+      for (int i = 0; i <= 2; i++) {
+        for (int j = 0; j <= 2; j++) {
+          count++;
+          if (i == index && j == indexy) {
+            flag = 1;
+            break;
+          }
+        }
+        if (flag == 1) {
+          break;
+        }
+      }
+      String m = "m$count";
+      DatabaseService(gameId: gameId).updateField(m, newValue);
       if (isWinner(index, indexy)) {
         showEndDialog("Player $newValue Won!!!!");
       } else if (isEnd()) {

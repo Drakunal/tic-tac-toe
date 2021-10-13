@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/screens/home.dart';
+import 'package:tic_tac_toe/screens/menu_page.dart';
+import 'package:tic_tac_toe/screens/signin.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);

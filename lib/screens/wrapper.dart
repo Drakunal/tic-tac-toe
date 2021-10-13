@@ -1,5 +1,3 @@
-import 'package:debit_credit/screens/home.dart';
-import 'package:debit_credit/screens/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/screens/home.dart';
@@ -27,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
                   child: Text("Error Occured!"),
                 );
               } else if (snapshot.hasData) {
-                return Home();
+                return MenuPage();
               } else {
                 return SignIn();
               }

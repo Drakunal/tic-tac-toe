@@ -16,7 +16,8 @@ class _MenuPageState extends State<MenuPage> {
       children: [
         Text("Choose game mode"),
         ElevatedButton(onPressed: createGame(), child: Text("Create Game")),
-        ElevatedButton(onPressed: joinGame(), child: Text("Join Game"))
+        ElevatedButton(onPressed: joinGame(), child: Text("Join Game")),
+        Home()
       ],
     ));
   }

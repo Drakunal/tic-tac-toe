@@ -27,7 +27,7 @@ class _WrapperState extends State<Wrapper> {
                   child: Text("Error Occured!"),
                 );
               } else if (snapshot.hasData) {
-                return MenuPage();
+                return Home();
               } else {
                 return SignIn();
               }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/services/database.dart';
 import 'package:tic_tac_toe/shared/utils.dart';
 
 class Player {
@@ -21,6 +22,7 @@ class _HomeState extends State<Home> {
   List<String> modes = ['3', '4', '5', '6'];
   String lastMove = Player.none;
   late List<List<String>> matrix;
+  String gameId = 'kunak12';
 
   @override
   void initState() {
@@ -57,6 +59,34 @@ class _HomeState extends State<Home> {
                   color: Colors.white,
                 ),
                 Text("Setting", style: TextStyle(color: Colors.white)),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                Text("Create game", style: TextStyle(color: Colors.white)),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                Text("Join game", style: TextStyle(color: Colors.white)),
               ],
             ),
           ),

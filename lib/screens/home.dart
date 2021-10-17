@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
   List<String> modes = ['3', '4', '5', '6'];
   String lastMove = Player.none;
   late List<List<String>> matrix;
-  String gameId = '';
+  String gameId = 'sample';
 
   @override
   void initState() {
@@ -66,11 +66,11 @@ class _HomeState extends State<Home> {
           ),
           TextButton(
             onPressed: () {
-              DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
-              setEmptyFields();
               setState(() {
                 gameId = user.email.toString();
               });
+              DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+              setEmptyFields();
             },
             child: Row(
               children: [

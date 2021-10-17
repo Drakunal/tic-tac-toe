@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/models/onlineplayer.dart';
 
 class DatabaseService {
   final String gameId;
@@ -34,47 +35,31 @@ class DatabaseService {
     });
   }
 
-  // Stream<List<t.Transaction>> transactions(String filterBy) {
-  //   // print("Hi this is the $uid");
-  //   // return transactionCollection
-  //   //     .where('userId', isEqualTo: uid)
-  //   //     .orderBy('date')
-  //   //     .snapshots()
-  //   //     .map(_transactionListFromSnapshot);
+  Stream<List<OnlinePlayer>> transactions() {
+    return transactionCollection
+        .where('gameId', isEqualTo: gameId)
+        .snapshots()
+        .map(_gameFromSnapshot);
+  }
 
-  //   String filterText = '';
-  //   if (filterBy == 'Important') {
-  //     filterText = '#ffbf00';
-  //     print("Filter Text is $filterBy");
-  //     return transactionCollection
-  //         .where('userId', isEqualTo: uid)
-  //         .where('star', isEqualTo: filterText)
-  //         .orderBy('date')
-  //         .snapshots()
-  //         .map(_transactionListFromSnapshot);
-  //   } else {
-  //     print("Filter Text is $filterBy");
-  //     return transactionCollection
-  //         .where('userId', isEqualTo: uid)
-  //         .orderBy('date')
-  //         .snapshots()
-  //         .map(_transactionListFromSnapshot);
-  //   }
-  // }
-
-  // List<t.Transaction> _transactionListFromSnapshot(QuerySnapshot snapshot) {
-  //   return snapshot.docs.map((doc) {
-  //     // print(doc.id);
-  //     Color temp = HexColor(doc.get('star') ?? '#808080');
-  //     return t.Transaction(
-  //         id: doc.id,
-  //         amount: doc.get('amount') ?? 0,
-  //         details: doc.get('details') ?? ' ',
-  //         type: doc.get('mode') ?? '',
-  //         date: doc.get('date').toDate() ?? DateTime.now(),
-  //         star: temp);
-  //   }).toList();
-  // }
+  List<OnlinePlayer> _gameFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return OnlinePlayer(
+          lobbyExists: doc.get('lobbyExists') ?? false,
+          uidCount: doc.get('uidCount') ?? 1,
+          gameId: doc.get('gameId') ?? 'sample',
+          numberOfSquares: doc.get('numberOfSquares') ?? 3,
+          m0: doc.get('m0') ?? '',
+          m1: doc.get('m1') ?? '',
+          m2: doc.get('m2') ?? '',
+          m3: doc.get('m3') ?? '',
+          m4: doc.get('m4') ?? '',
+          m5: doc.get('m5') ?? '',
+          m6: doc.get('m6') ?? '',
+          m7: doc.get('m7') ?? '',
+          m8: doc.get('m8') ?? '');
+    }).toList();
+  }
 
   Future updateField(String m, String value) async {
     return await transactionCollection.doc(gameId).update({m: value});

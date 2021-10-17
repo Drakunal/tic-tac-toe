@@ -66,11 +66,15 @@ class _HomeState extends State<Home> {
           ),
           TextButton(
             onPressed: () {
-              setState(() {
-                gameId = user.email.toString();
-              });
-              DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
-              setEmptyFields();
+              if (gameId == 'sample') {
+                setState(() {
+                  gameId = user.email.toString();
+                });
+                DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+                setEmptyFields();
+              } else {
+                null;
+              }
             },
             child: Row(
               children: [

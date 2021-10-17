@@ -30,6 +30,7 @@ class DatabaseService {
       'm6': '',
       'm7': '',
       'm8': '',
+      'lobbyExists': true,
     });
   }
 

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/services/database.dart';
 import 'package:tic_tac_toe/shared/utils.dart';
@@ -16,13 +17,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final user = FirebaseAuth.instance.currentUser!;
   static int countMatrix = 3;
   static double size = 96;
   String _modeSelected = '3';
   List<String> modes = ['3', '4', '5', '6'];
   String lastMove = Player.none;
   late List<List<String>> matrix;
-  String gameId = 'kunak12';
+  String gameId = '';
 
   @override
   void initState() {
@@ -66,6 +68,9 @@ class _HomeState extends State<Home> {
             onPressed: () {
               DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
               setEmptyFields();
+              setState(() {
+                gameId = user.email.toString();
+              });
             },
             child: Row(
               children: [

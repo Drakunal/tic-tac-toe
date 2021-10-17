@@ -78,4 +78,11 @@ class DatabaseService {
   Future updateField(String m, String value) async {
     return await transactionCollection.doc(gameId).update({m: value});
   }
+
+  Future joinPlayers() async {
+    final snapShot = await transactionCollection.doc(gameId).get();
+    if (snapShot.exists) {
+      return await transactionCollection.doc(gameId).update({'uidCount': 2});
+    }
+  }
 }

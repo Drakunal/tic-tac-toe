@@ -65,6 +65,7 @@ class _HomeState extends State<Home> {
           TextButton(
             onPressed: () {
               DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+              setEmptyFields();
             },
             child: Row(
               children: [
@@ -78,7 +79,7 @@ class _HomeState extends State<Home> {
           ),
           TextButton(
             onPressed: () {
-              DatabaseService(gameId: gameId).addPlayers(1, gameId, 3);
+              joinGame();
             },
             child: Row(
               children: [
@@ -250,5 +251,25 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void joinGame() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            child: TextFormField(
+              // userData!.name
+
+              validator: (value) => value!.isEmpty ? 'Enter an id' : null,
+              onChanged: (value) {
+                setState(() {
+                  gameId = value;
+                });
+              },
+            ),
+          );
+        });
+    DatabaseService(gameId: gameId).joinPlayers();
   }
 }

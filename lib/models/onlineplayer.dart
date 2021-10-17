@@ -11,8 +11,10 @@ class OnlinePlayer {
   int m6;
   int m7;
   int m8;
+  bool lobbyExists;
 
   OnlinePlayer({
+    required this.lobbyExists,
     required this.uidCount,
     required this.gameId,
     required this.numberOfSquars,
